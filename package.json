@@ -1,0 +1,17 @@
+{
+  "name": "color-translator",
+  "version": "1.0.0",
+  "description": "Universal Color Code Translator",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "keywords": [
+    "color",
+    "converter",
+    "translator",
+    "hex",
+    "rgb",
+    "hsl"
+  ],
+  "license": "MIT"
+}

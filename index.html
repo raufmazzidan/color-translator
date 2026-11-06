@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color - Universal Color Code Translator</title>
+    <meta
+      name="description"
+      content="Translate any color code into HEX, RGB, HSL, HSV, CMYK, OKLCH, LAB, and more with instant copy."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2314b8a6'/></svg>"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="logo-group">
+          <div>
+            <h1>Color Translator</h1>
+            <p class="subtitle">Input any format to translate</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Omnibar Universal Input -->
+      <section class="omni-section">
+        <div class="omni-box">
+          <div class="omni-input-wrapper">
+            <div
+              class="color-preview-pipette"
+              id="omniColorIndicator"
+              title="Click to open color picker"
+            >
+              <input
+                type="color"
+                id="nativeColorInput"
+                value="#14b8a6"
+                aria-label="Color Picker"
+              />
+            </div>
+            <input
+              type="text"
+              id="omniInput"
+              class="omni-input"
+              placeholder="Enter any color code: #14b8a6, rgb(20, 184, 166), hsl(173, 80%, 40%), oklch, cmyk..."
+              value="#14b8a6"
+              autocomplete="off"
+              spellcheck="false"
+              autofocus
+            />
+            <span id="formatBadge" class="format-badge">HEX</span>
+          </div>
+        </div>
+        <div id="inputErrorNotice" class="input-error-notice hidden">
+          ⚠️ Unable to recognize this color code. Please check syntax.
+        </div>
+      </section>
+
+      <!-- Color Preview -->
+      <section class="preview-section">
+        <div class="preview-card">
+          <div class="preview-checkerboard">
+            <div
+              id="previewSwatch"
+              class="preview-swatch-fill"
+              style="background-color: #14b8a6"
+            >
+              <div class="preview-contrast-chips">
+                <span class="chip-contrast chip-white">White text Aa</span>
+                <span class="chip-contrast chip-black">Black text Aa</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-meta-bar">
+            <div class="preview-color-name-group">
+              <span class="preview-label">Preview Color</span>
+              <span id="previewName" class="preview-color-name">Teal</span>
+            </div>
+            <div class="preview-badges-group">
+              <span id="previewHex" class="preview-code-badge">#14b8a6</span>
+              <span id="previewRgb" class="preview-code-badge"
+                >rgb(20, 184, 166)</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Translated Formats Section -->
+      <main class="formats-panel">
+        <div class="section-title-row">
+          <h2>Translated Formats</h2>
+          <span class="hint-text"
+            >Edit any format and press Enter to translate to all</span
+          >
+        </div>
+
+        <div class="format-cards-grid" id="formatCardsGrid">
+          <!-- HEX Standard -->
+          <div class="format-card" data-format="hex">
+            <div class="format-header">
+              <span class="format-tag">HEX (6-digit)</span>
+              <button class="copy-btn" title="Copy HEX">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtHex"
+              value="#14b8a6"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- HEX Alpha (8-digit) -->
+          <div class="format-card" data-format="hex8">
+            <div class="format-header">
+              <span class="format-tag">HEX (Alpha / 8-digit)</span>
+              <button class="copy-btn" title="Copy HEX Alpha">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtHex8"
+              value="#14b8a6ff"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- RGB / RGBA -->
+          <div class="format-card" data-format="rgb">
+            <div class="format-header">
+              <span class="format-tag">RGB / RGBA</span>
+              <button class="copy-btn" title="Copy RGB">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtRgb"
+              value="rgb(20, 184, 166)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Modern CSS RGB -->
+          <div class="format-card" data-format="rgbModern">
+            <div class="format-header">
+              <span class="format-tag">CSS RGB (Modern)</span>
+              <button class="copy-btn" title="Copy Modern RGB">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtRgbModern"
+              value="rgb(20 184 166 / 100%)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- HSL / HSLA -->
+          <div class="format-card" data-format="hsl">
+            <div class="format-header">
+              <span class="format-tag">HSL / HSLA</span>
+              <button class="copy-btn" title="Copy HSL">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtHsl"
+              value="hsl(173, 80%, 40%)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- HSV / HSB -->
+          <div class="format-card" data-format="hsv">
+            <div class="format-header">
+              <span class="format-tag">HSV / HSB</span>
+              <button class="copy-btn" title="Copy HSV">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtHsv"
+              value="hsv(173, 89%, 72%)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- CMYK -->
+          <div class="format-card" data-format="cmyk">
+            <div class="format-header">
+              <span class="format-tag">CMYK</span>
+              <button class="copy-btn" title="Copy CMYK">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtCmyk"
+              value="cmyk(89%, 0%, 10%, 28%)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- OKLCH -->
+          <div class="format-card" data-format="oklch">
+            <div class="format-header">
+              <span class="format-tag">OKLCH</span>
+              <button class="copy-btn" title="Copy OKLCH">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtOklch"
+              value="oklch(0.7 0.14 182)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- CIELAB -->
+          <div class="format-card" data-format="lab">
+            <div class="format-header">
+              <span class="format-tag">CIELAB (L*a*b*)</span>
+              <button class="copy-btn" title="Copy LAB">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtLab"
+              value="lab(67.4% -41.2 -1.4)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Tailwind CSS -->
+          <div class="format-card" data-format="tailwind">
+            <div class="format-header">
+              <span class="format-tag">Tailwind CSS</span>
+              <button class="copy-btn" title="Copy Tailwind Class">
+                📋 Copy
+              </button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtTailwind"
+              value="bg-[#14b8a6] text-[#14b8a6]"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- CSS Variable -->
+          <div class="format-card" data-format="cssVar">
+            <div class="format-header">
+              <span class="format-tag">CSS Custom Property</span>
+              <button class="copy-btn" title="Copy CSS Variable">
+                📋 Copy
+              </button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtCssVar"
+              value="--color-primary: #14b8a6;"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Flutter / Dart -->
+          <div class="format-card" data-format="flutter">
+            <div class="format-header">
+              <span class="format-tag">Flutter / Dart</span>
+              <button class="copy-btn" title="Copy Flutter Color">
+                📋 Copy
+              </button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtFlutter"
+              value="Color(0xFF14B8A6)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Swift / SwiftUI -->
+          <div class="format-card" data-format="swift">
+            <div class="format-header">
+              <span class="format-tag">Swift / SwiftUI</span>
+              <button class="copy-btn" title="Copy Swift Color">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtSwift"
+              value="Color(red: 0.08, green: 0.72, blue: 0.65)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Android ARGB -->
+          <div class="format-card" data-format="android">
+            <div class="format-header">
+              <span class="format-tag">Android XML / Hex</span>
+              <button class="copy-btn" title="Copy Android Hex">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtAndroid"
+              value="#FF14B8A6"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Float RGB -->
+          <div class="format-card" data-format="floatRgb">
+            <div class="format-header">
+              <span class="format-tag">RGB Float (vec4)</span>
+              <button class="copy-btn" title="Copy Float RGB">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtFloatRgb"
+              value="vec4(0.078, 0.722, 0.651, 1.0)"
+              spellcheck="false"
+            />
+          </div>
+
+          <!-- Decimal Integer -->
+          <div class="format-card" data-format="decimal">
+            <div class="format-header">
+              <span class="format-tag">Decimal / Integer</span>
+              <button class="copy-btn" title="Copy Decimal">📋 Copy</button>
+            </div>
+            <input
+              type="text"
+              class="format-input"
+              id="fmtDecimal"
+              value="1358006"
+              spellcheck="false"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
